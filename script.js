@@ -5,14 +5,15 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 class Person{
-    constructor(x, y, radius, inf, velocity){
+    constructor(x, y, radius, inf, velocity, randDirTimer){
         this.x = x
         this.y = y
         this.radius = radius
         this.inf = inf
         this.velocity = velocity
         this.color = 'Black'
-        this.timer = 500;
+        this.timer = 500
+        this.randomDirectionTimer = randDirTimer
     }
     draw(){
         C.beginPath()
@@ -33,6 +34,19 @@ class Person{
                 this.velocity = {x: 0,y: 0}
             }
         }
+        
+        if(this.inf == 2){
+            
+        }
+        else {
+            this.randomDirectionTimer = this.randomDirectionTimer - 1
+            if (this.randomDirectionTimer == 1){
+                this.velocity = {x: Math.random() * 2 - 1,y: Math.random() * 2 - 1}
+                this.randomDirectionTimer = Math.round(Math.random() * 1000)
+                console.log('change')
+            }
+        }
+        
         if (this.inf == 2){
             this.color = 'blue'
         }
@@ -77,10 +91,10 @@ function populate(amount, percentageImmune, percentageInfected){
 
 }
 function newPerson(inf) {
-    people.push( person = new Person(Math.random() * canvas.width, Math.random() * canvas.height, 10, inf, {x: Math.random() * 2 - 1,y: Math.random() * 2 - 1}))
-
+    people.push( person = new Person(Math.random() * canvas.width, Math.random() * canvas.height, 10, inf, {x: Math.random() * 2 - 1,y: Math.random() * 2 - 1}, Math.round(Math.random() * 100)))
+    
 }
-populate(500, 75, 1)
+populate(100, 75, 1)
 
 person.draw()
 
